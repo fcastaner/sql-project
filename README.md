@@ -31,7 +31,9 @@ inventory: representa las copias de las películas disponibles en cada tienda.
 Cada alquiler está asociado a una copia concreta de una película
 
 **Pagos**
+
 payment: almacena los pagos realizados por los clientes por cada alquiler.
+
 Está relacionada con customer, rental y staff.
 
 **Tiendas y empleados**
@@ -186,6 +188,7 @@ Nosotros hemos querido comprobar que los resultados que nos devolvía la consult
 63. Primero extraemos todos los empleados de las tiendas (hay 2 en total) y luego hacemos CROSS JOIN para obtener todas las combinaciones posibles de empleados y tiendas existentes. Esta consulta no tiene sentido porque los empleados actualmente ya trabajan cada uno en una tienda concreta y por tanto no es real que pertenezcan a más de una. 
 
 64. Extraemos todos los clientes primero. Luego usamos COUNT para calcular el total de peliculas alquiladas. Unimos las tablas customer y rental con LEFT JOIN para mostrar todos los clientes, independientemente de que nunca hayan alquilado películas. Agrupamos por cliente con GROUP BY. 
+
 
 
 
