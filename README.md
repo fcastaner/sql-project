@@ -5,19 +5,29 @@ La base de datos está compuesta por varias tablas relacionadas entre sí, organ
 # EXPLICACIÓN DE LAS PRINCIPALES TABLAS Y RELACIONES 
 
 **Películas**
+
 film: contiene la información principal de las películas (título, duración, idioma, precio de alquiler, clasificación, etc.).
+
 language: indica el idioma de las películas.
+
 film_actor: tabla que relaciona películas y actores.
+
 film_category y category: permiten clasificar las películas por género.
 
 **Actores**
+
 actor: almacena el nombre y apellido de los actores.
+
 Se relaciona con las películas a través de la tabla film_actor.
 
 **Clientes y alquileres**
+
 customer: información de los clientes.
+
 rental: registra los alquileres de películas realizados por los clientes.
+
 inventory: representa las copias de las películas disponibles en cada tienda.
+
 Cada alquiler está asociado a una copia concreta de una película
 
 **Pagos**
@@ -25,12 +35,17 @@ payment: almacena los pagos realizados por los clientes por cada alquiler.
 Está relacionada con customer, rental y staff.
 
 **Tiendas y empleados**
+
 store: representa las tiendas del videoclub.
+
 staff: empleados que trabajan en las tiendas.
+
 address, city y country: gestionan la información de direcciones.
+
 Las tiendas y empleados están vinculados a direcciones y localizaciones geográficas.
 
 **Conclusión del esquema**
+
 El esquema de la base de datos Shakila muestra un conjunto de relaciones entre variables de uno a muchos y muchos a muchos, lo que permitirá realizar consultas detalladas sobre películas, actores, clientes, alquileres y pagos.
 
 
@@ -50,9 +65,9 @@ El esquema de la base de datos Shakila muestra un conjunto de relaciones entre v
 
 8. Usamos WHERE y OR para indicar la condición de que las películas sean de la clasificación PG-13 o tengan una duración mayor a 3h
 
-9.Con la función VARIANCE encontramos la variabilidad del coste de reemplazo. Hay bastante variabilidad en el coste de reemplazo de las películas. Por tanto, no todas tienen el mismo coste de reemplazo, sino que son bastante diferentes. 
+9. Con la función VARIANCE encontramos la variabilidad del coste de reemplazo. Hay bastante variabilidad en el coste de reemplazo de las películas. Por tanto, no todas tienen el mismo coste de reemplazo, sino que son bastante diferentes. 
 
-10.Con las funciones min y max podemos extraer la duración mínima y máxima del repositorio de películas. Sorprende que una película solo dure 46 min vs la más larga que dura 185.
+10. Con las funciones min y max podemos extraer la duración mínima y máxima del repositorio de películas. Sorprende que una película solo dure 46 min vs la más larga que dura 185.
 
 11. Primero ordenamos los pagos del más reciente al más antiguo y luego con Offset y limit extraemos solo el antepenúltimo pago
 
@@ -90,11 +105,11 @@ El esquema de la base de datos Shakila muestra un conjunto de relaciones entre v
 
 28. Extraemos los actor_id y los agrupamos con GROUP BY, lo que nos obliga a usar HAVING para introducir la condición de COUNT(film_id)>40
 
-29.Usamos LEFT JOIN para extraer todos los títulos de película, independientemente de que estén o no en el inventario y usamos GROUP BY para agrupar por título
+29. Usamos LEFT JOIN para extraer todos los títulos de película, independientemente de que estén o no en el inventario y usamos GROUP BY para agrupar por título
 
-30.Necesitamos primero contabilizar el número de películas de la tabla film_actor: COUNT(film_actor.film_id). Luego tenemos que unir dos tablas (actor, film_actor) para extraer los datos solicitados con JOIN y con GROUP BY los agrupamos por actor. 
+30. Necesitamos primero contabilizar el número de películas de la tabla film_actor: COUNT(film_actor.film_id). Luego tenemos que unir dos tablas (actor, film_actor) para extraer los datos solicitados con JOIN y con GROUP BY los agrupamos por actor. 
 
-31.Primero extraemos el título de la película y todos los actores de la tabla film, luego con LEFT JOIN vinculamos tres tablas (film, film_actor y actor), siendo la principal film de donde extraemos películas, de manera que se muestren todas aunque no tengan actores implicados.
+31. Primero extraemos el título de la película y todos los actores de la tabla film, luego con LEFT JOIN vinculamos tres tablas (film, film_actor y actor), siendo la principal film de donde extraemos películas, de manera que se muestren todas aunque no tengan actores implicados.
 
 32. Es el inverso del apartado anterior, primero extraemos todos los actores y con LEFT JOIN unimos tres tablas (actor, film_actor y film), de manera que el nombre del actor se priorice y por tanto se muestren todos los actores con independencia de que no tengan película asociada
 
@@ -171,5 +186,6 @@ Nosotros hemos querido comprobar que los resultados que nos devolvía la consult
 63. Primero extraemos todos los empleados de las tiendas (hay 2 en total) y luego hacemos CROSS JOIN para obtener todas las combinaciones posibles de empleados y tiendas existentes. Esta consulta no tiene sentido porque los empleados actualmente ya trabajan cada uno en una tienda concreta y por tanto no es real que pertenezcan a más de una. 
 
 64. Extraemos todos los clientes primero. Luego usamos COUNT para calcular el total de peliculas alquiladas. Unimos las tablas customer y rental con LEFT JOIN para mostrar todos los clientes, independientemente de que nunca hayan alquilado películas. Agrupamos por cliente con GROUP BY. 
+
 
 
