@@ -158,6 +158,7 @@ El esquema de la base de datos Shakila muestra un conjunto de relaciones entre v
 53. Usamos la función SELECT DISTINCT para extraer las películas alquiladas (y aunque se haya alquilado la misma varias veces solo aparezca una sola vez). Con JOIN unimos la información de varias tablas (customer, rental, inventory y film). Con WHERE y AND añadimos varias condiciones: que el nombre sea Tammy, su apellido sea Sanders y rental.return_date IS NULL. Ordenamos por título de película alfabéticamente con ORDER BY ASC. Comprobamos que Lust Lock, Sleepy Japanese y Trouble date son las películas que aún no ha devuelto Tammy Sanders. 
 
 54. Usamos la función SELECT DISTINCT para extraer los actores (y aunque dicho actor aparezca en varias películas solo aparezca una vez). Unificamos con JOIN los datos de varias tablas (actor, film_actor, film, film_category y category). Con WHERE condicionamos a que solo aparezcan las películas de categoría 'Sci-Fi' y con ORDER BY ASC ordenamos resultados por apellido del actor alfabéticamente. 
+
 55. Esta consulta tiene varios pasos:
 	1. SELECT DISTINCT para mostrar todos los actores únicos (que no se repita ninguno). 
 	
@@ -169,7 +170,7 @@ El esquema de la base de datos Shakila muestra un conjunto de relaciones entre v
 	
 	5. ORDER BY para ordenar alfabéticamente los resultados por apellido del actor
 
-Nosotros hemos querido comprobar que los resultados que nos devolvía la consulta eran correctos. Para ello ejecutamos dos consultas separadas. La primera para saber la primera vez que se alquiló Spartacus Cheaper (8/07 a las 6:43h) y la segunda para ver las fechas de alquiler que aparecen en nuestra consulta y verificar que efectivamente son posteriores a esa fecha. 
+	Nosotros hemos querido comprobar que los resultados que nos devolvía la consulta eran correctos. Para ello ejecutamos dos consultas separadas. La primera para saber la primera vez que se alquiló Spartacus 		Cheaper (8/07 a las 6:43h) y la segunda para ver las fechas de alquiler que aparecen en nuestra consulta y verificar que efectivamente son posteriores a esa fecha. 
 
 56. Primero extraemos todos los actores. Realizamos luego una subconsulta con WHERE NOT EXISTS y SELECT 1 para poder excluir a los actores que hayan actuado en al menos una película de la categoría 'Music'. Vemos que varios actores no han actuado en películas de 'Music'.
 
@@ -188,6 +189,7 @@ Nosotros hemos querido comprobar que los resultados que nos devolvía la consult
 63. Primero extraemos todos los empleados de las tiendas (hay 2 en total) y luego hacemos CROSS JOIN para obtener todas las combinaciones posibles de empleados y tiendas existentes. Esta consulta no tiene sentido porque los empleados actualmente ya trabajan cada uno en una tienda concreta y por tanto no es real que pertenezcan a más de una. 
 
 64. Extraemos todos los clientes primero. Luego usamos COUNT para calcular el total de peliculas alquiladas. Unimos las tablas customer y rental con LEFT JOIN para mostrar todos los clientes, independientemente de que nunca hayan alquilado películas. Agrupamos por cliente con GROUP BY. 
+
 
 
 
