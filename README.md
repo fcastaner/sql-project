@@ -3,8 +3,9 @@ El esquema de la base de datos ha sido creado ejecutando el script SQL proporcio
 La base de datos está compuesta por varias tablas relacionadas entre sí, organizadas principalmente en torno a películas, actores, clientes, alquileres y pagos.
 
 Explicación de las principales tablas y relaciones
-Películas
-film: contiene la información principal de las películas (título, duración, idioma, precio de alquiler, clasificación, etc.).
+
+#Películas#
+**film**: contiene la información principal de las películas (título, duración, idioma, precio de alquiler, clasificación, etc.).
 language: indica el idioma de las películas.
 film_actor: tabla que relaciona películas y actores.
 film_category y category: permiten clasificar las películas por género.
@@ -103,3 +104,4 @@ Nosotros hemos querido comprobar que los resultados que nos devolvía la consult
 62. Extraemos el nombre de todas las categorías y renombramos con AS la columna category.name como categoría para su posterior visualización. Posteriormente unificamos con JOIN las tablas category, film_category y film. Añadimos WHERE para incluir el condicionante de que el año de estreno sea 2006. Agrupamos con GROUP BY por nombre de categoría. 
 63. Primero extraemos todos los empleados de las tiendas (hay 2 en total) y luego hacemos CROSS JOIN para obtener todas las combinaciones posibles de empleados y tiendas existentes. Esta consulta no tiene sentido porque los empleados actualmente ya trabajan cada uno en una tienda concreta y por tanto no es real que pertenezcan a más de una. 
 64. Extraemos todos los clientes primero. Luego usamos COUNT para calcular el total de peliculas alquiladas. Unimos las tablas customer y rental con LEFT JOIN para mostrar todos los clientes, independientemente de que nunca hayan alquilado películas. Agrupamos por cliente con GROUP BY. 
+
