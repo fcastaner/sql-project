@@ -1,2 +1,0 @@
-# sql-project
-PROYECTO SQL - PELICULAS
