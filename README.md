@@ -71,7 +71,7 @@ El esquema de la base de datos Shakila muestra un conjunto de relaciones entre v
 
 10. Con las funciones min y max podemos extraer la duración mínima y máxima del repositorio de películas. Sorprende que una película solo dure 46 min vs la más larga que dura 185.
 
-11. Primero ordenamos los pagos del más reciente al más antiguo y luego con Offset y limit extraemos solo el antepenúltimo pago
+11. Primero ordenamos los pagos del más reciente al más antiguo y también por id porque hay varios alquileres en la misma hora y minuto. Luego con Offset y limit extraemos solo el antepenúltimo pago
 
 12. Gracias a incluir 'NOT IN' podemos excluir los ratings solicitados
 
@@ -143,9 +143,9 @@ El esquema de la base de datos Shakila muestra un conjunto de relaciones entre v
 
 46. Usamos LEFT JOIN para unir la información de la tabla actor y film_actor, para que muestre todos los actores y con WHERE añadimos la condición de que film_actor.actor_id IS NULL para que nos devuelva solo los actores que no hayan participado en ninguna película. La consulta no da resultados, por lo que todos los actores en la BBDD tiene alguna película asociada. 
 
-47. Unimos con JOIN las tablas actor y film_actor. Usamos COUNT(film_actor.film_id) para calcular cuántas películas ha hecho cada actor y con GROUP BY las agrupamos por actor. En esta BBDD la actriz Susan Davis es la que aparece en más películas (54)
+47. Unimos con JOIN las tablas actor y film_actor. Usamos COUNT(film_actor.film_id) para calcular cuántas películas ha hecho cada actor y con GROUP BY las agrupamos por id y por nombre de actor. En esta BBDD la actriz Gina Degeneres es la que aparece en más películas (42)
 
-48. Creamos la vista actor_num_peliculas con CREATE VIEW. Seleccionamos nombre y apellidos de los actores y con COUNT(film_actor.film_id) calculamos el número de películas de los mismos, para ello necesitamos usar JOIN y unir la tabla actor con film_actor. Luego con GROUP BY agrupamos resultados por nombre y apellidos. Al ir a comprobar que todo el conjunto de consultas se pudieran lanzar sin problema y dieran resultados, vemos que esta consulta justo da error porque ya encuentra la vista actor_num_peliculas. Vemos que tenemos la opción de usar la función DROP VIEW IF EXISTS para hacer que la borre si la encuentra y luego la vuelva a crear, así evitar problemas al ejecutar todo el script.  
+48. Creamos la vista actor_num_peliculas con CREATE VIEW. Seleccionamos nombre y apellidos de los actores y con COUNT(film_actor.film_id) calculamos el número de películas de los mismos, para ello necesitamos usar JOIN y unir la tabla actor con film_actor. Luego con GROUP BY agrupamos resultados por id y por nombre y apellidos. Al ir a comprobar que todo el conjunto de consultas se pudieran lanzar sin problema y dieran resultados, vemos que esta consulta justo da error porque ya encuentra la vista actor_num_peliculas. Vemos que tenemos la opción de usar la función DROP VIEW IF EXISTS para hacer que la borre si la encuentra y luego la vuelva a crear, así evitar problemas al ejecutar todo el script.  
 
 49. Extraemos nombre y apellidos de los clientes y con COUNT(rental.rental_id) calculamos el total de alquileres. Unimos con JOIN las tablas customer y rental, con GROUP BY agrupamos por cliente y con ORDER BY DESC lo ordenamos de mayor a menor n.º de alquileres. Eleanor Hunt es la clienta con mayor n.º de alquileres (46)
 
@@ -176,7 +176,7 @@ El esquema de la base de datos Shakila muestra un conjunto de relaciones entre v
 
 57. Usamos SELECT DISTINCT para extraer las películas únicas (no repetidas). Unificamos con JOIN la data de las tablas film, inventory y rental. Con WHERE y AND añadimos dos condicionantes: que la película ya se haya devuelto y que entre la fecha de alquiler y la de devolución hayan pasado más de 8 días (rental.return_date - rental.rental_date > INTERVAL '8 days')
 
-58. Usamos SELECT DISTINCT para extraer las películas únicas (no repetidas). Unificamos con JOIN la data de las tablas film, film_category y category. Añadimos condicionante con WHERE para extraer solo las de la categoría 'Animation'.
+58. Usamos SELECT DISTINCT para extraer las películas únicas (no repetidas). Unificamos con JOIN la data de las tablas film, film_category y category. Con una subconulta descubrimos primero cuál es el id de la categoría de Animation. Añadimos condicionante con WHERE para extraer las películas de la categoría 'Animation'.
 
 59. Primero extraemos todas las películas y su duración. Luego ejecutamos una subconsulta con WHERE para encontrar solo aquellas cuya duración sea igual a la de la película Dancing Fever. Vemos que hay siete películas además de la misma con la misma duración (144 min). Usamos ORDER BY ASC para ordenar los resultados por el título de película alfabéticamente. 
 
@@ -189,6 +189,7 @@ El esquema de la base de datos Shakila muestra un conjunto de relaciones entre v
 63. Primero extraemos todos los empleados de las tiendas (hay 2 en total) y luego hacemos CROSS JOIN para obtener todas las combinaciones posibles de empleados y tiendas existentes. Esta consulta no tiene sentido porque los empleados actualmente ya trabajan cada uno en una tienda concreta y por tanto no es real que pertenezcan a más de una. 
 
 64. Extraemos todos los clientes primero. Luego usamos COUNT para calcular el total de peliculas alquiladas. Unimos las tablas customer y rental con LEFT JOIN para mostrar todos los clientes, independientemente de que nunca hayan alquilado películas. Agrupamos por cliente con GROUP BY. 
+
 
 
 
