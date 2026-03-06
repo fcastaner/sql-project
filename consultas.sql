@@ -81,10 +81,10 @@ FROM film;
 
 -- 11. Encuentra lo que costó el antepenúltimo alquiler ordenado por día.
 
-SELECT
-  amount
+SELECT payment.amount
 FROM payment
-ORDER BY payment_date DESC
+JOIN rental ON payment.rental_id = rental.rental_id
+ORDER BY rental.rental_date DESC, rental.rental_id DESC
 OFFSET 2
 LIMIT 1;
 
@@ -451,6 +451,7 @@ WHERE film_actor.actor_id IS NULL;
 
 -- 47. Selecciona el nombre de los actores y la cantidad de películas en las que han participado.
 SELECT
+    actor.actor_id,
     actor.first_name,
     actor.last_name,
     COUNT(film_actor.film_id) AS total_peliculas
@@ -458,6 +459,7 @@ FROM actor
 JOIN film_actor
     ON actor.actor_id = film_actor.actor_id
 GROUP BY
+    actor.actor_id,
     actor.first_name,
     actor.last_name
 ORDER BY total_peliculas DESC;
@@ -466,6 +468,7 @@ ORDER BY total_peliculas DESC;
 DROP VIEW IF EXISTS actor_num_peliculas;
 CREATE VIEW actor_num_peliculas AS
 SELECT
+    actor.actor_id,
     actor.first_name,
     actor.last_name,
     COUNT(film_actor.film_id) AS num_peliculas
@@ -473,6 +476,7 @@ FROM actor
 JOIN film_actor
     ON actor.actor_id = film_actor.actor_id
 GROUP BY
+    actor.actor_id,
     actor.first_name,
     actor.last_name;
 
@@ -596,7 +600,7 @@ WHERE rental.rental_date >
           ON rental.inventory_id = inventory.inventory_id
         JOIN film
           ON inventory.film_id = film.film_id
-        WHERE film.title = 'Spartacus Cheaper'
+        WHERE film.title = 'SPARTACUS CHEAPER'
       )
 ORDER BY actor.last_name ASC;
 
@@ -668,10 +672,12 @@ SELECT DISTINCT
     film.title
 FROM film
 JOIN film_category
-  ON film.film_id = film_category.film_id
-JOIN category
-  ON film_category.category_id = category.category_id
-WHERE category.name = 'Animation';
+    ON film.film_id = film_category.film_id
+WHERE film_category.category_id = (
+    SELECT category.category_id
+    FROM category
+    WHERE category.name = 'Animation'
+);
 
 -- 59. Encuentra los nombres de las películas que tienen la misma duración que la película con el título ‘Dancing Fever’. Ordena los resultados alfabéticamente por título de película
 SELECT
